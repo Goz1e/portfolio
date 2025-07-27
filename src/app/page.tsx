@@ -51,6 +51,7 @@ const previewMap: Record<string, ReactElement> = {
       loop
       muted
       playsInline
+      preload="auto"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
     ></video>
   ),
@@ -61,6 +62,7 @@ const previewMap: Record<string, ReactElement> = {
       loop
       muted
       playsInline
+      preload="auto"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
     ></video>
   ),
@@ -71,6 +73,7 @@ const previewMap: Record<string, ReactElement> = {
       loop
       muted
       playsInline
+      preload="auto"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
     ></video>
   ),
@@ -111,15 +114,15 @@ export default function Home() {
   }, [subIndex, deleting]);
 
   return (
-    <div className="font-mono flex flex-col min-h-screen space-y-4 w-full p-8 pb-20 sm:p-20 scroll-smooth">
-      <main className="grow gap-[32px]  row-start-2 items-center sm:items-start">
+    <div className="font-mono flex flex-col items-center-safe min-h-screen space-y-4 w-full p-8 pb-20 sm:p-20 scroll-smooth">
+      <main className="grow gap-[32px] max-w-[80rem] row-start-2 items-center sm:items-start">
         <div className="w-full h-18 md:h-32 text-center text-3xl lg:text-6xl font-mono">
           {`<GOZIE.`}
           <span>{words[index].substring(0, subIndex)}</span>
           {`/>`}
         </div>
         {/* <div className="w-full h-32 text-center text:xl lg:text-6xl">{`<GỌZIE.ui/>`}</div> */}
-        <div className="size-full  grid grid-flow-row md:grid-cols-2 gap-6 md:gap-3 ">
+        <div className="size-full  grid grid-flow-row lg:grid-cols-2 gap-6 md:gap-3 ">
           {projects.map((project: Project) => (
             <Card
               key={project.title}
@@ -130,27 +133,33 @@ export default function Home() {
               }}
               className={cn(
                 activeProject === project.title &&
-                  "aspect-video z-20 transition-all duration-300",
+                  "aspect-video z-20 transition-all duration-300 border-solid",
                 "relative"
               )}
             >
               <CardHeader>
                 <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
+                <CardDescription></CardDescription>
                 <CardAction>
                   {project.type === "web page" && (
-                    <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
-                      <Image
-                        src={
-                          "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnBlaWRxcjB0YTdidHp5YngzM2g2Y244bXdlam1pNW50cDl3em1reSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9ZQ/e0Uiyu70TXQAALdKP9/giphy.gif"
-                        }
-                        height={20}
-                        width={20}
-                        alt="globe"
-                        className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
-                      />
-                      Visit page
-                    </div>
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
+                        <Image
+                          src={
+                            "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnBlaWRxcjB0YTdidHp5YngzM2g2Y244bXdlam1pNW50cDl3em1reSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9ZQ/e0Uiyu70TXQAALdKP9/giphy.gif"
+                          }
+                          height={20}
+                          width={20}
+                          alt="globe"
+                          className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
+                        />
+                        Visit page
+                      </div>
+                    </a>
                   )}
                   {project.type === "app" && (
                     <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
@@ -159,6 +168,7 @@ export default function Home() {
                         height={20}
                         width={20}
                         alt="globe"
+                        unoptimized
                         className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
                       />
                       Visit app
@@ -171,6 +181,7 @@ export default function Home() {
                         height={20}
                         width={20}
                         alt="globe"
+                        unoptimized
                         className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
                       />
                       View repo
@@ -179,6 +190,7 @@ export default function Home() {
                 </CardAction>
               </CardHeader>
               <CardContent className="">
+                {project.description}
                 {activeProject === project.title &&
                   previewMap[activeProject || ""]}
               </CardContent>
@@ -224,7 +236,7 @@ export default function Home() {
           ))}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center h-28 border border-dashed border-black bg-black/10">
+      <footer className="row-start-3 flex gap-[24px] w-full max-w-[80rem] flex-wrap items-center justify-center h-28 border border-dashed border-black bg-black/10">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
