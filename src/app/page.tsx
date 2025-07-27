@@ -16,7 +16,7 @@ import { RiFirebaseLine } from "react-icons/ri";
 import { SiJavascript } from "react-icons/si";
 import { SiTypescript } from "react-icons/si";
 import { BsBootstrap } from "react-icons/bs";
-import { FaRegEye } from "react-icons/fa";
+import { FaGithub, FaRegEye } from "react-icons/fa";
 
 import { SiExpress } from "react-icons/si";
 import { MdOutlineEmail } from "react-icons/md";
@@ -78,9 +78,9 @@ const previewMap: Record<string, ReactElement> = {
     ></video>
   ),
 };
-const words = ["js", "sol", "py", "ts"];
+const words = ["ui", "js", "sol", "py", "ts"];
 const typingSpeed = 150;
-const pauseTime = 13000;
+const pauseTime = 15000;
 
 export default function Home() {
   const [activeProject, setActiveProject] = useState<
@@ -114,12 +114,14 @@ export default function Home() {
   }, [subIndex, deleting]);
 
   return (
-    <div className="font-mono flex flex-col items-center-safe min-h-screen space-y-4 w-full p-8 pb-20 sm:p-20 scroll-smooth">
-      <main className="grow gap-[32px] max-w-[80rem] row-start-2 items-center sm:items-start">
-        <div className="w-full h-18 md:h-32 text-center text-3xl lg:text-6xl font-mono">
+    <div className="font-mono flex flex-col items-center-safe min-h-screen space-y-4 w-full p-8 pb-20 sm:p-20 scroll-smooth ">
+      <main className=" gap-[32px] max-w-[80rem] row-start-2 items-center sm:items-start space-y-4">
+        <div className="w-full  p-6  text-center text-3xl lg:text-6xl font-mono">
           {`<GOZIE.`}
           <span>{words[index].substring(0, subIndex)}</span>
           {`/>`}
+          <p className="text-lg mt-4">Nwachukwu Emmanuel Chigozie.</p>
+          <p className="text-sm ">Front-end projects</p>
         </div>
         {/* <div className="w-full h-32 text-center text:xl lg:text-6xl">{`<GỌZIE.ui/>`}</div> */}
         <div className="size-full  grid grid-flow-row lg:grid-cols-2 gap-6 md:gap-3 ">
@@ -213,33 +215,35 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
-                <div
-                  className={cn(
-                    "p-1 h-7 z-30 aspect-square inline-flex items-center mt-auto bg-black/10 gap-2 border border-dashed border-black cursor-zoom-in",
-                    "grayscale-100 md:opacity-0 group-hover/card-body:opacity-100 transition-all duration-300 md:translate-x-2 group-hover/card-body:translate-x-0 delay-200"
-                  )}
-                  onClick={() => {
-                    setActiveProject((prev) =>
-                      prev == project.title ? null : project.title
-                    );
-                  }}
-                >
-                  {" "}
-                  {activeProject !== project.title ? (
-                    <FaRegEye />
-                  ) : (
-                    <LuEyeClosed />
-                  )}
-                </div>
+                {project.type !== "repo" && (
+                  <div
+                    className={cn(
+                      "p-1 h-7 z-30 aspect-square inline-flex items-center mt-auto bg-black/10 gap-2 border border-dashed border-black cursor-zoom-in",
+                      "grayscale-100 md:opacity-0 group-hover/card-body:opacity-100 transition-all duration-300 md:translate-x-2 group-hover/card-body:translate-x-0 delay-200"
+                    )}
+                    onClick={() => {
+                      setActiveProject((prev) =>
+                        prev == project.title ? null : project.title
+                      );
+                    }}
+                  >
+                    {" "}
+                    {activeProject !== project.title ? (
+                      <FaRegEye />
+                    ) : (
+                      <LuEyeClosed />
+                    )}
+                  </div>
+                )}
               </CardFooter>
             </Card>
           ))}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] w-full max-w-[80rem] flex-wrap items-center justify-center h-28 border border-dashed border-black bg-black/10">
+      <footer className="row-start-3 flex gap-[24px] w-full max-w-[80rem] flex-wrap items-center justify-center h-fit p-4 border border-dashed border-black bg-black/10">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          href="t.me/Goxzie"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -248,21 +252,31 @@ export default function Home() {
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          href="phenominal55@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
+          type="email"
         >
           <MdOutlineEmail className="h-6" size={20} />
           Email
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
+          href="https://calendar.google.com/calendar/u/0?cid=cGhlbm9taW5hbDU1QGdtYWlsLmNvbQ"
           target="_blank"
           rel="noopener noreferrer"
         >
           <RiCalendarCheckFill className="h-6" size={20} />
           Schedule a meeting
+        </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="https://github.com/Goz1e"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <FaGithub className="h-6" size={20} />
+          Github
         </a>
       </footer>
     </div>
