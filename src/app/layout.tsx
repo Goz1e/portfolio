@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://gtx.finance"),
+  metadataBase: new URL("https://gozie.vercel.app/"),
   title: "Emmanuel's portfolio",
   description: "Nwachukwu Emmanuel's Front-end portfolio",
   category: "technology",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
   referrer: "origin-when-cross-origin",
   alternates: {
-    canonical: "./",
+    canonical: "https://gozie.vercel.app/",
   },
 
   authors: [{ name: "Nwachukwu Emmanuel" }],

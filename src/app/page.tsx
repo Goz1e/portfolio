@@ -46,7 +46,7 @@ const stackIconMap: Record<string, ReactElement> = {
 const previewMap: Record<string, ReactElement> = {
   "Canza.io": (
     <video
-      src="/preview/canza.mp4"
+      src="https://res.cloudinary.com/dpboshzzm/video/upload/v1753641177/canza_onsex8.mov"
       autoPlay
       loop
       muted
@@ -57,7 +57,7 @@ const previewMap: Record<string, ReactElement> = {
   ),
   "Baki.exchange": (
     <video
-      src="/preview/baki.mp4"
+      src="https://res.cloudinary.com/dpboshzzm/video/upload/v1753641175/baki_hugnvo.mov"
       autoPlay
       loop
       muted
@@ -68,7 +68,7 @@ const previewMap: Record<string, ReactElement> = {
   ),
   "CoinMarketCap Clone": (
     <video
-      src="/preview/cmc-clone.mp4"
+      src="https://res.cloudinary.com/dpboshzzm/video/upload/v1753641178/cmc-clone_whhvrr.mov"
       autoPlay
       loop
       muted
