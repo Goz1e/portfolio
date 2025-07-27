@@ -1,71 +1,238 @@
+"use client";
 import Image from "next/image";
+import { projects } from "@/lib/data";
+import { Project } from "@/lib/types";
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { TbBrandNextjs, TbBrandTailwind } from "react-icons/tb";
+import { RiFirebaseLine } from "react-icons/ri";
+import { SiJavascript } from "react-icons/si";
+import { SiTypescript } from "react-icons/si";
+import { BsBootstrap } from "react-icons/bs";
+import { FaRegEye } from "react-icons/fa";
+
+import { SiExpress } from "react-icons/si";
+import { MdOutlineEmail } from "react-icons/md";
+import { RiTelegram2Line } from "react-icons/ri";
+import { RiCalendarCheckFill } from "react-icons/ri";
+import { AiOutlinePython } from "react-icons/ai";
+
+import { FaReact } from "react-icons/fa";
+import { cn } from "@/lib/utils";
+
+import { ReactElement, useEffect, useState } from "react";
+import { LuEyeClosed } from "react-icons/lu";
+
+const stackIconMap: Record<string, ReactElement> = {
+  "Next.js": <TbBrandNextjs />,
+  "Tailwind CSS": <TbBrandTailwind />,
+  python: <AiOutlinePython />,
+  JavaScript: <SiJavascript />,
+  TypeScript: <SiTypescript />,
+  Firebase: <RiFirebaseLine />,
+  Firestore: <RiFirebaseLine />,
+  Express: <SiExpress />,
+  Bootstrap: <BsBootstrap />,
+  React: <FaReact />,
+};
+
+const previewMap: Record<string, ReactElement> = {
+  "Canza.io": (
+    <video
+      src="/preview/canza.mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
+    ></video>
+  ),
+  "Baki.exchange": (
+    <video
+      src="/preview/baki.mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
+    ></video>
+  ),
+  "CoinMarketCap Clone": (
+    <video
+      src="/preview/cmc-clone.mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+      className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
+    ></video>
+  ),
+};
+const words = ["js", "sol", "py", "ts"];
+const typingSpeed = 150;
+const pauseTime = 13000;
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [activeProject, setActiveProject] = useState<
+    "Canza.io" | "Baki.exchange" | "CoinMarketCap Clone" | "Arby" | null
+  >(null);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const [index, setIndex] = useState(0);
+  const [subIndex, setSubIndex] = useState(0);
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    if (subIndex === words[index].length + 1 && !deleting) {
+      // Pause before deleting
+      setTimeout(() => setDeleting(true), pauseTime);
+      return;
+    }
+
+    if (subIndex === 0 && deleting) {
+      // Move to next word
+      setDeleting(false);
+      setIndex((prev) => (prev + 1) % words.length);
+      return;
+    }
+
+    const timeout = setTimeout(() => {
+      setSubIndex((prev) => (deleting ? prev - 1 : prev + 1));
+    }, typingSpeed);
+
+    return () => clearTimeout(timeout);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subIndex, deleting]);
+
+  return (
+    <div className="font-mono flex flex-col min-h-screen space-y-4 w-full p-8 pb-20 sm:p-20 scroll-smooth">
+      <main className="grow gap-[32px]  row-start-2 items-center sm:items-start">
+        <div className="w-full h-18 md:h-32 text-center text-3xl lg:text-6xl font-mono">
+          {`<GOZIE.`}
+          <span>{words[index].substring(0, subIndex)}</span>
+          {`/>`}
+        </div>
+        {/* <div className="w-full h-32 text-center text:xl lg:text-6xl">{`<GỌZIE.ui/>`}</div> */}
+        <div className="size-full  grid grid-flow-row md:grid-cols-2 gap-6 md:gap-3 ">
+          {projects.map((project: Project) => (
+            <Card
+              key={project.title}
+              onMouseLeave={() => {
+                setTimeout(() => {
+                  setActiveProject(null);
+                }, 300);
+              }}
+              className={cn(
+                activeProject === project.title &&
+                  "aspect-video z-20 transition-all duration-300",
+                "relative"
+              )}
+            >
+              <CardHeader>
+                <CardTitle>{project.title}</CardTitle>
+                <CardDescription>{project.description}</CardDescription>
+                <CardAction>
+                  {project.type === "web page" && (
+                    <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
+                      <Image
+                        src={
+                          "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnBlaWRxcjB0YTdidHp5YngzM2g2Y244bXdlam1pNW50cDl3em1reSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9ZQ/e0Uiyu70TXQAALdKP9/giphy.gif"
+                        }
+                        height={20}
+                        width={20}
+                        alt="globe"
+                        className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
+                      />
+                      Visit page
+                    </div>
+                  )}
+                  {project.type === "app" && (
+                    <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
+                      <Image
+                        src={"/icons8-bot.gif"}
+                        height={20}
+                        width={20}
+                        alt="globe"
+                        className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
+                      />
+                      Visit app
+                    </div>
+                  )}
+                  {project.type === "repo" && (
+                    <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
+                      <Image
+                        src={"/icons8-github.gif"}
+                        height={20}
+                        width={20}
+                        alt="globe"
+                        className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
+                      />
+                      View repo
+                    </div>
+                  )}
+                </CardAction>
+              </CardHeader>
+              <CardContent className="">
+                {activeProject === project.title &&
+                  previewMap[activeProject || ""]}
+              </CardContent>
+              <CardFooter>
+                <div className="inline-flex items-center gap-2 flex-wrap-reverse grow mt-auto">
+                  {project.stack.map((stack) => (
+                    <div
+                      key={`${project.title}-${stack}`}
+                      className={cn(
+                        "inline-flex items-center gap-2 border border-dashed border-black px-2 py-1 text-sm font-medium transition-all duration-300"
+                        // "w-0 opacity-0 translate-x-1",
+                        // `group-hover/card-body:w-auto group-hover/card-body:opacity-100 group-hover/card-body:translate-x-0`,
+                        // `delay-${100 + 50 * index}` // only apply delay on enter
+                      )}
+                    >
+                      {stackIconMap[stack] && (
+                        <span className="text-base">{stackIconMap[stack]}</span>
+                      )}
+                      <span>{stack}</span>
+                    </div>
+                  ))}
+                </div>
+                <div
+                  className={cn(
+                    "p-1 h-7 z-30 aspect-square inline-flex items-center mt-auto bg-black/10 gap-2 border border-dashed border-black cursor-zoom-in",
+                    "grayscale-100 md:opacity-0 group-hover/card-body:opacity-100 transition-all duration-300 md:translate-x-2 group-hover/card-body:translate-x-0 delay-200"
+                  )}
+                  onClick={() => {
+                    setActiveProject((prev) =>
+                      prev == project.title ? null : project.title
+                    );
+                  }}
+                >
+                  {" "}
+                  {activeProject !== project.title ? (
+                    <FaRegEye />
+                  ) : (
+                    <LuEyeClosed />
+                  )}
+                </div>
+              </CardFooter>
+            </Card>
+          ))}
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
+      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center h-28 border border-dashed border-black bg-black/10">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
           href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
+          <RiTelegram2Line className="h-6" size={20} />
+          Direct Message
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -73,14 +240,8 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
+          <MdOutlineEmail className="h-6" size={20} />
+          Email
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
@@ -88,14 +249,8 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
+          <RiCalendarCheckFill className="h-6" size={20} />
+          Schedule a meeting
         </a>
       </footer>
     </div>
