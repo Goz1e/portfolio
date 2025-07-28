@@ -46,36 +46,53 @@ const stackIconMap: Record<string, ReactElement> = {
 const previewMap: Record<string, ReactElement> = {
   "Canza.io": (
     <video
-      src="https://res.cloudinary.com/dpboshzzm/video/upload/v1753641177/canza_onsex8.mov"
       autoPlay
       loop
       muted
       playsInline
       preload="auto"
+      poster="https://res.cloudinary.com/dpboshzzm/image/upload/v1753688835/Screenshot_2025-07-26_at_11.03.12_PM_twcsnl.png"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
-    ></video>
+    >
+      <source
+        src="https://res.cloudinary.com/dpboshzzm/video/upload/q_auto,f_auto/v1753641177/canza_onsex8.mov"
+        type="video/mp4"
+      />
+    </video>
   ),
   "Baki.exchange": (
     <video
-      src="https://res.cloudinary.com/dpboshzzm/video/upload/v1753641175/baki_hugnvo.mov"
       autoPlay
       loop
       muted
       playsInline
       preload="auto"
+      poster="https://res.cloudinary.com/dpboshzzm/image/upload/v1753688834/Screenshot_2025-07-26_at_11.02.57_PM_gkl2e6.png"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
-    ></video>
+    >
+      {" "}
+      <source
+        src="https://res.cloudinary.com/dpboshzzm/video/upload/q_auto,f_auto/v1753641175/baki_hugnvo.mov"
+        type="video/mp4"
+      />
+    </video>
   ),
   "CoinMarketCap Clone": (
     <video
-      src="https://res.cloudinary.com/dpboshzzm/video/upload/v1753641178/cmc-clone_whhvrr.mov"
       autoPlay
       loop
       muted
       playsInline
       preload="auto"
+      poster="https://res.cloudinary.com/dpboshzzm/image/upload/v1753688836/Screenshot_2025-07-26_at_11.03.54_PM_hglsvz.png"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
-    ></video>
+    >
+      {" "}
+      <source
+        src="https://res.cloudinary.com/dpboshzzm/video/upload/q_auto,f_auto/v1753641178/cmc-clone_whhvrr.mov"
+        type="video/mp4"
+      />
+    </video>
   ),
 };
 const words = ["ui", "js", "sol", "py", "ts"];
@@ -123,8 +140,7 @@ export default function Home() {
           <p className="text-lg mt-4">Nwachukwu Emmanuel Chigozie.</p>
           <p className="text-sm ">Front-end projects</p>
         </div>
-        {/* <div className="w-full h-32 text-center text:xl lg:text-6xl">{`<GỌZIE.ui/>`}</div> */}
-        <div className="size-full  grid grid-flow-row lg:grid-cols-2 gap-6 md:gap-3 ">
+        <div className="size-full grid grid-flow-row lg:grid-cols-2 gap-6 md:gap-3 ">
           {projects.map((project: Project) => (
             <Card
               key={project.title}
@@ -219,7 +235,8 @@ export default function Home() {
                   <div
                     className={cn(
                       "p-1 h-7 z-30 aspect-square inline-flex items-center mt-auto bg-black/10 gap-2 border border-dashed border-black cursor-zoom-in",
-                      "grayscale-100 md:opacity-0 group-hover/card-body:opacity-100 transition-all duration-300 md:translate-x-2 group-hover/card-body:translate-x-0 delay-200"
+                      "grayscale-100 md:opacity-0 group-hover/card-body:opacity-100 transition-all duration-300 md:translate-x-2 group-hover/card-body:translate-x-0 delay-200",
+                      activeProject === project.title && "cursor-zoom-out"
                     )}
                     onClick={() => {
                       setActiveProject((prev) =>
