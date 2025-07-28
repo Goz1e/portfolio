@@ -180,17 +180,23 @@ export default function Home() {
                     </a>
                   )}
                   {project.type === "app" && (
-                    <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
-                      <Image
-                        src={"/icons8-bot.gif"}
-                        height={20}
-                        width={20}
-                        alt="globe"
-                        unoptimized
-                        className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
-                      />
-                      Visit app
-                    </div>
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
+                        <Image
+                          src={"/icons8-bot.gif"}
+                          height={20}
+                          width={20}
+                          alt="globe"
+                          unoptimized
+                          className="grayscale-100 opacity-0 group-hover/title:opacity-100 transition-all duration-300 translate-x-2 group-hover/title:translate-x-0"
+                        />
+                        Visit app
+                      </div>
+                    </a>
                   )}
                   {project.type === "repo" && (
                     <div className="inline-flex gap-2 items-center group/title text-sm font-medium">
