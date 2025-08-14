@@ -266,7 +266,7 @@ export default function Home() {
       <footer className="row-start-3 flex gap-[24px] w-full max-w-[80rem] flex-wrap items-center justify-center h-fit p-4 border border-dashed border-black bg-black/10">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="t.me/Goxzie"
+          href="https://t.me/Goxzie"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -275,7 +275,7 @@ export default function Home() {
         </a>
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="phenominal55@gmail.com"
+          href="mailto:phenominal55@gmail.com"
           target="_blank"
           rel="noopener noreferrer"
           type="email"
