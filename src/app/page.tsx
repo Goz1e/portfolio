@@ -66,7 +66,6 @@ const previewMap: Record<string, ReactElement> = {
       loop
       muted
       playsInline
-      preload="auto"
       poster="https://res.cloudinary.com/dpboshzzm/image/upload/v1753688834/Screenshot_2025-07-26_at_11.02.57_PM_gkl2e6.png"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
     >
@@ -83,7 +82,6 @@ const previewMap: Record<string, ReactElement> = {
       loop
       muted
       playsInline
-      preload="auto"
       poster="https://res.cloudinary.com/dpboshzzm/image/upload/v1753688836/Screenshot_2025-07-26_at_11.03.54_PM_hglsvz.png"
       className="w-full h-full max-w-full object-cover object-top absolute top-0 inset-0"
     >
